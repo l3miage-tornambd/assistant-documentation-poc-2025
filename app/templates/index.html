@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Documentation - POC</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 Assistant Documentation</h1>
+            <p>Posez vos questions sur la documentation technique</p>
+            <div class="status-bar">
+                <div>
+                    {% if status.status == 'ready' %}
+                        <span class="status-info">✅ Prêt ({{ status.num_documents }} documents, {{ status.num_chunks }} sections)</span>
+                    {% else %}
+                        <span class="status-error">❌ Erreur: {{ status.error or 'Erreur inconnue' }}</span>
+                    {% endif %}
+                </div>
+                <div class="header-buttons">
+                    <form method="POST" action="{{ url_for('main.refresh_documents') }}" style="display: inline;">
+                        <button type="submit" class="btn">🔄 Rafraîchir</button>
+                    </form>
+                    <form method="POST" action="{{ url_for('main.clear_conversation') }}" style="display: inline;">
+                        <button type="submit" class="btn">🗑️ Effacer</button>
+                    </form>
+                </div>
+            </div>
+        </header>
+
+        <div class="chat-container">
+            <!-- Messages Flash -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ 'success' if category == 'success' else 'error' if category == 'error' else 'info' }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <!-- Historique de conversation -->
+            <div class="conversation-history">
+                {% if conversation %}
+                    {% for msg in conversation %}
+                        <div class="message {{ msg.type }}-message">
+                            {% if msg.type == 'user' %}
+                                <strong>Vous:</strong> {{ msg.message }}
+                            {% elif msg.type == 'bot' %}
+                                <strong>Assistant:</strong> {{ msg.message }}
+                            {% else %}
+                                {{ msg.message }}
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-state">
+                        <p>Commencez la conversation en posant une question !</p>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Formulaire de question -->
+            <form method="POST" action="{{ url_for('main.chat') }}" class="input-form">
+                <div class="input-group">
+                    <textarea
+                        name="question"
+                        id="question"
+                        placeholder="Posez votre question sur la documentation..."
+                        maxlength="500"
+                        required
+                    ></textarea>
+                    <button type="submit" class="submit-btn">Envoyer</button>
+                </div>
+                <div class="form-actions">
+                    <div class="form-info">
+                        <small>Appuyez sur Ctrl+Entrée pour envoyer</small>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Auto-focus sur le champ de texte
+        document.getElementById('question').focus();
+
+        // Ctrl+Enter pour envoyer
+        document.getElementById('question').addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') {
+                e.preventDefault();
+                this.form.submit();
+            }
+        });
+
+        // Auto-scroll vers le bas de la conversation
+        const conversation = document.querySelector('.conversation-history');
+        conversation.scrollTop = conversation.scrollHeight;
+    </script>
+</body>
+</html>
