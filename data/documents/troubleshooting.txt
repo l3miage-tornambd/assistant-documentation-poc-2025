@@ -1,0 +1,6 @@
+Troubleshooting
+
+Si l’application ne démarre pas :
+- Vérifiez que le fichier config.py contient les bonnes valeurs.
+- Assurez-vous que tous les fichiers .txt sont dans le dossier “documents”.
+- Vérifiez que les dépendances sont installées avec pip install -r requirements.txt.

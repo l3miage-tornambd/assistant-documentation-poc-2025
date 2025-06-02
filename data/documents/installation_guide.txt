@@ -1,0 +1,9 @@
+Installation Guide
+
+Pour installer notre application :
+1. Clonez le dépôt depuis GitHub.
+2. Créez un environnement virtuel Python (version recommandée : 3.11).
+3. Installez les dépendances via pip avec requirements.txt.
+4. Lancez l’application avec la commande : python app.py
+
+En cas de problème, vérifiez que Python 3.11 est bien utilisé.

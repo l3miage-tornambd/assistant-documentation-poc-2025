@@ -1,0 +1,6 @@
+Features
+
+Notre chatbot propose plusieurs fonctionnalités :
+- Réponses contextuelles basées sur vos documents.
+- Rafraîchissement automatique de l’index de documents.
+- Gestion de l’historique de conversation.

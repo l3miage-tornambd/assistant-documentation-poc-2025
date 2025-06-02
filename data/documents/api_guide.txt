@@ -1,0 +1,8 @@
+API Guide
+
+L’API REST de notre service propose plusieurs endpoints :
+- /auth : pour l’authentification
+- /users : pour obtenir les informations des utilisateurs
+- /messages : pour envoyer ou recevoir des messages
+
+Pour l’authentification, utilisez un jeton JWT valide dans l’en-tête Authorization.

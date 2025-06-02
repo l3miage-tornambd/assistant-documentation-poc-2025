@@ -1,0 +1,10 @@
+FAQ
+
+Q : Comment puis-je contacter le support ?
+R : Envoyez un email à support@example.com
+
+Q : Où puis-je trouver la documentation technique ?
+R : La documentation complète est disponible sur notre site web, section "Documentation".
+
+Q : Comment c'est le jambon ?
+R : C'est bon !
